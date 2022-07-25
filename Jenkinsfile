@@ -5,35 +5,61 @@ pipeline {
         ENV_MS_CUSTOMER = credentials('simple-bank-customer')
     }
     stages {
-        stage('Build Account') {
+        stage('Deploy Account') {
             when {
                 changeset "**/account/**"
                 beforeAgent true
              }
             steps {
-            dir('account') {
-                  sh '''
+                dir('account') {
+                    sh '''
                     cp \$ENV_MS_ACCOUNT .
                     docker build -f Dockerfile -t simple-bank-account:latest .
                     docker rm -f simple-bank-account
                     docker run --name=simple-bank-account -d -p 9980:9980 simple-bank-account:latest
-                  '''
+                    '''
                 }
             }
         }
-        stage('Build Customer') {
+        stage('Deploy Customer') {
             when {
                 changeset "**/customer/**"
                 beforeAgent true
              }
             steps {
-            dir('customer') {
-                  sh '''
+                dir('customer') {
+                    sh '''
                     cp \$ENV_MS_CUSTOMER .
                     docker build -f Dockerfile -t simple-bank-customer:latest .
                     docker rm -f simple-bank-customer
                     docker run --name=simple-bank-customer -d -p 9981:9981 simple-bank-customer:latest
-                  '''
+                    '''
+                }
+            }
+        }
+
+        stage('Force Deploy') {
+            script {
+                timeout(time: 10, unit: 'SECONDS') {
+                    input(id: "Force Deploy", message: "Deploy All?", ok: 'Deploy')
+                }
+            }
+            steps {
+                dir('account') {
+                    sh '''
+                    cp \$ENV_MS_ACCOUNT .
+                    docker build -f Dockerfile -t simple-bank-account:latest .
+                    docker rm -f simple-bank-account
+                    docker run --name=simple-bank-account -d -p 9980:9980 simple-bank-account:latest
+                    '''
+                }
+                dir('customer') {
+                    sh '''
+                    cp \$ENV_MS_CUSTOMER .
+                    docker build -f Dockerfile -t simple-bank-customer:latest .
+                    docker rm -f simple-bank-customer
+                    docker run --name=simple-bank-customer -d -p 9981:9981 simple-bank-customer:latest
+                    '''
                 }
             }
         }
