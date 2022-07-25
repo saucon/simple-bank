@@ -23,7 +23,7 @@ RUN apk add -U tzdata
 RUN cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 COPY --from=builder /go/src/github.com/Saucon/simple-bank/customer/customerapp simple-bank/customer/
-COPY --from=builder /go/src/github.com/Saucon/simple-bank/customer/customerapp/.env customer/
+COPY --from=builder /go/src/github.com/Saucon/simple-bank/customer/.env customer/
 
 RUN ls -al /simple-bank/customer
 
