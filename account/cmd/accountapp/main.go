@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-	log.Println("helloworld 9, this is account app.....")
 	// get env
 	env.NewEnv("account/.env")
 	cfg := env.Config
