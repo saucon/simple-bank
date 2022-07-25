@@ -22,10 +22,14 @@ pipeline {
                 beforeAgent true
              }
             steps {
-                sh('cd customer/')
-                sh('docker build -f Dockerfile -t simple-bank-customer:latest .')
-                sh('docker rm -f simple-bank-customer')
-                sh('docker run --name=simple-bank-customer -d -p 9981:9981 simple-bank-customer:latest')
+            dir('customer') {
+                      sh '''
+                        docker build -f Dockerfile -t simple-bank-customer:latest .
+                        docker rm -f simple-bank-customer
+                        docker run --name=simple-bank-customer -d -p 9981:9981 simple-bank-customer:latest
+                      '''
+                    }
+                }
             }
         }
     }
