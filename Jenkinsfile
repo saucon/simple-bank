@@ -42,7 +42,7 @@ pipeline {
 
             steps {
                 script {
-                    timeout(time: 10, unit: 'SECONDS') {
+                    timeout(time: 30, unit: 'SECONDS') {
                         input(id: "Force Deploy", message: "Deploy All?", ok: 'Deploy')
                     }
                 }
