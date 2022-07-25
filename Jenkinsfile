@@ -39,12 +39,13 @@ pipeline {
         }
 
         stage('Force Deploy') {
-            script {
-                timeout(time: 10, unit: 'SECONDS') {
-                    input(id: "Force Deploy", message: "Deploy All?", ok: 'Deploy')
-                }
-            }
+
             steps {
+                script {
+                    timeout(time: 10, unit: 'SECONDS') {
+                        input(id: "Force Deploy", message: "Deploy All?", ok: 'Deploy')
+                    }
+                }
                 dir('account') {
                     sh '''
                     cp \$ENV_MS_ACCOUNT .
