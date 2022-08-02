@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// get env
-	env.NewEnv("account/local/.env")
+	env.NewEnv("account/.env")
 	cfg := env.Config
 
 	logger := log.NewLogCustom(cfg)
