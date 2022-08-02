@@ -32,3 +32,20 @@ func (ah *AccountHandler) CreateAccount(c *gin.Context) {
 	})
 	return
 }
+
+func (ah *AccountHandler) UpdateAccount(c *gin.Context) {
+	var request model.RequestCreateAccount
+
+	err := c.ShouldBindJSON(&request)
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
+
+	c.JSON(201, model.ResponseCreateAccount{
+		ResponseCode:    "200XX00",
+		ResponseMessage: "Successful",
+		Body:            request.Accounts,
+	})
+	return
+}
