@@ -24,4 +24,6 @@ func main() {
 	if err := router.Gin.Run(cfg.Host + ":" + cfg.Port); err != nil {
 		logger.Fatal(err, "Something was wrong with "+cfg.Host+":"+cfg.Port, nil)
 	}
+
+	// build now
 }
