@@ -34,7 +34,7 @@ func (ah *AccountHandler) CreateAccount(c *gin.Context) {
 }
 
 func (ah *AccountHandler) UpdateAccount(c *gin.Context) {
-	var request model.RequestCreateAccount
+	var request model.RequestUpdateAccount
 
 	err := c.ShouldBindJSON(&request)
 	if err != nil {
@@ -46,6 +46,22 @@ func (ah *AccountHandler) UpdateAccount(c *gin.Context) {
 		ResponseCode:    "200XX00",
 		ResponseMessage: "Successful",
 		Body:            request.Accounts,
+	})
+	return
+}
+
+func (ah *AccountHandler) DeactivateAccount(c *gin.Context) {
+	var request model.RequestDeactivateAccount
+
+	err := c.ShouldBindJSON(&request)
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
+
+	c.JSON(201, model.ResponseDeactivateAccount{
+		ResponseCode:    "200XX00",
+		ResponseMessage: "Successful",
 	})
 	return
 }
