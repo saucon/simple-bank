@@ -1,6 +1,6 @@
 package usecase
 
-type IAccount interface {
+type IAccountUsecase interface {
 	CreateAccount()
 	UpdateAccount()
 	DeactivateAccount()
