@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	// get env
+	// get env sa
 	env.NewEnv("account/.env")
 	cfg := env.Config
 
