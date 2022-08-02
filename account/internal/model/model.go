@@ -24,9 +24,9 @@ type Accounts struct {
 }
 
 type BalanceAmount struct {
-	Value        string `json:"value"`
-	Currency     string `json:"currency"`
-	BalanceFloat float64
+	Value        string  `json:"value"`
+	Currency     string  `json:"currency"`
+	BalanceFloat float64 `json:"balanceFloat,omitempty"`
 }
 
 type RequestCreateAccount struct {
