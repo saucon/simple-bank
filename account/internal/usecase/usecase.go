@@ -1,9 +1,12 @@
 package usecase
 
-import "github.com/Saucon/simple-bank/account/pkg/log"
+import (
+	"github.com/Saucon/simple-bank/account/internal/model"
+	"github.com/Saucon/simple-bank/account/pkg/log"
+)
 
 type IAccountUsecase interface {
-	CreateAccount()
+	CreateAccount(account model.Accounts) error
 	UpdateAccount()
 	DeactivateAccount()
 }
@@ -12,7 +15,7 @@ type accountUsecase struct {
 	log *log.LogCustom
 }
 
-func (a accountUsecase) CreateAccount() {
+func (a accountUsecase) CreateAccount(account model.Accounts) error {
 	//TODO implement me
 	panic("implement me")
 }
