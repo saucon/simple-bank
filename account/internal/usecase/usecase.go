@@ -17,7 +17,7 @@ type accountUsecase struct {
 
 func (a accountUsecase) CreateAccount(account model.Accounts) error {
 	//TODO implement me
-	panic("implement me")
+	return nil
 }
 
 func (a accountUsecase) UpdateAccount() {

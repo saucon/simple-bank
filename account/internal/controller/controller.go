@@ -2,17 +2,21 @@ package controller
 
 import (
 	"github.com/Saucon/simple-bank/account/internal/model"
+	"github.com/Saucon/simple-bank/account/internal/usecase"
 	"github.com/Saucon/simple-bank/account/pkg/log"
 	"github.com/gin-gonic/gin"
 )
 
 type AccountHandler struct {
 	log *log.LogCustom
+
+	accntUsecase usecase.IAccountUsecase
 }
 
-func NewAccountHandler(a *log.LogCustom) AccountHandler {
+func NewAccountHandler(a *log.LogCustom, b usecase.IAccountUsecase) AccountHandler {
 	return AccountHandler{
-		log: a,
+		log:          a,
+		accntUsecase: b,
 	}
 }
 
@@ -24,6 +28,8 @@ func (ah *AccountHandler) CreateAccount(c *gin.Context) {
 		c.JSON(500, err)
 		return
 	}
+
+	err = ah.accntUsecase.CreateAccount(request.Accounts)
 
 	c.JSON(201, model.ResponseCreateAccount{
 		ResponseCode:    "201XX00",

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/Saucon/simple-bank/account/configs/ginconf"
 	"github.com/Saucon/simple-bank/account/internal/controller"
+	"github.com/Saucon/simple-bank/account/internal/usecase"
 	"github.com/Saucon/simple-bank/account/pkg/env"
 	"github.com/Saucon/simple-bank/account/pkg/log"
 )
@@ -16,7 +17,8 @@ func main() {
 
 	router := ginconf.NewRouter()
 
-	accountHandler := controller.NewAccountHandler(logger)
+	accountUsecase := usecase.NewAccountUsecase(logger)
+	accountHandler := controller.NewAccountHandler(logger, accountUsecase)
 
 	router.Gin = router.GroupingRouter(logger, cfg, accountHandler.CreateAccount)
 	if err := router.Gin.Run(cfg.Host + ":" + cfg.Port); err != nil {
