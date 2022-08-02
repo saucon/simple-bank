@@ -6,6 +6,7 @@ type ServerConfig struct {
 	Name          string `env:"NAME_SERVER"`
 	Port          string `env:"PORT_SERVER,required"`
 	Host          string `env:"HOST_SERVER,required"`
+	Version       string `env:"VERSION_SERVER,required"`
 	JSONPathFile  string `env:"JSON_PATHFILE,required"`
 	DBConfig      DBConfig
 	ElasticConfig ElasticConfig
