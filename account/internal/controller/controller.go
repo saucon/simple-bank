@@ -48,6 +48,7 @@ func (ah *AccountHandler) UpdateAccount(c *gin.Context) {
 		return
 	}
 
+	ah.log.Success(request, nil, nil, nil, "controller - UpdateAccount", "", nil)
 	c.JSON(201, model.ResponseCreateAccount{
 		ResponseCode:    "200XX00",
 		ResponseMessage: "Successful",
