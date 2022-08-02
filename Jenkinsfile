@@ -14,6 +14,7 @@ pipeline {
                 dir('account') {
                     sh '''
                     cp \$ENV_MS_ACCOUNT .
+                    cat .env
                     docker build -f Dockerfile -t simple-bank-account:latest .
                     docker rm -f simple-bank-account
                     docker run --name=simple-bank-account -d -p 9980:9980 simple-bank-account:latest
@@ -30,6 +31,7 @@ pipeline {
                 dir('customer') {
                     sh '''
                     cp \$ENV_MS_CUSTOMER .
+                    cat .env
                     docker build -f Dockerfile -t simple-bank-customer:latest .
                     docker rm -f simple-bank-customer
                     docker run --name=simple-bank-customer -d -p 9981:9981 simple-bank-customer:latest
@@ -49,6 +51,7 @@ pipeline {
                 dir('account') {
                     sh '''
                     cp \$ENV_MS_ACCOUNT .
+                    cat .env
                     docker build -f Dockerfile -t simple-bank-account:latest .
                     docker rm -f simple-bank-account
                     docker run --name=simple-bank-account -d -p 9980:9980 simple-bank-account:latest
@@ -57,6 +60,7 @@ pipeline {
                 dir('customer') {
                     sh '''
                     cp \$ENV_MS_CUSTOMER .
+                    cat .env
                     docker build -f Dockerfile -t simple-bank-customer:latest .
                     docker rm -f simple-bank-customer
                     docker run --name=simple-bank-customer -d -p 9981:9981 simple-bank-customer:latest

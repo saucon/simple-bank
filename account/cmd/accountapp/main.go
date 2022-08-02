@@ -2,18 +2,24 @@ package main
 
 import (
 	"github.com/Saucon/simple-bank/account/configs/ginconf"
+	"github.com/Saucon/simple-bank/account/internal/controller"
 	"github.com/Saucon/simple-bank/account/pkg/env"
-	"log"
+	"github.com/Saucon/simple-bank/account/pkg/log"
 )
 
 func main() {
 	// get env
-	env.NewEnv("account/.env")
+	env.NewEnv("account/local/.env")
 	cfg := env.Config
+
+	logger := log.NewLogCustom(cfg)
 
 	router := ginconf.NewRouter()
 
-	if err := router.Run(cfg.Host + ":" + cfg.Port); err != nil {
-		log.Fatalf("Something was wrong with "+cfg.Host+":"+cfg.Port, err)
+	accountHandler := controller.NewAccountHandler(logger)
+
+	router.Gin = router.GroupingRouter(logger, cfg, accountHandler.CreateAccount)
+	if err := router.Gin.Run(cfg.Host + ":" + cfg.Port); err != nil {
+		logger.Fatal(err, "Something was wrong with "+cfg.Host+":"+cfg.Port, nil)
 	}
 }
